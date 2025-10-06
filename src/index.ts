@@ -268,7 +268,7 @@ const BLEPrinter = {
       RNBLEPrinter.printRawData(
         processedText.text,
         processedText.opts,
-        (error: Error) => console.warn(error)
+        (error: Error) => throw error
       );
     } else {
       RNBLEPrinter.printRawData(textTo64Buffer(text, opts), (error: Error) =>
