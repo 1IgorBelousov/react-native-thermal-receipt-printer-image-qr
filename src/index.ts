@@ -3,7 +3,7 @@ import { NativeModules, NativeEventEmitter, Platform } from "react-native";
 import * as EPToolkit from "./utils/EPToolkit";
 import { processColumnText } from "./utils/print-column";
 import { COMMANDS } from "./utils/printer-commands";
-import { connectToHost } from "./utils/net-connect";
+// import { connectToHost } from "./utils/net-connect";
 
 const RNUSBPrinter = NativeModules.RNUSBPrinter;
 const RNBLEPrinter = NativeModules.RNBLEPrinter;
@@ -418,7 +418,7 @@ const NetPrinter = {
   ): Promise<INetPrinter> =>
     new Promise(async (resolve, reject) => {
       try {
-        await connectToHost(host, timeout);
+        // await connectToHost(host, timeout);
         RNNetPrinter.connectPrinter(
           host,
           port,
