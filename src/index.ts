@@ -273,7 +273,7 @@ const BLEPrinter = {
       );
     } else {
       RNBLEPrinter.printRawData(textTo64Buffer(text, opts), (error: Error) =>
-        console.warn(error)
+        {throw new Error("No printer Connection")}
       );
     }
   },
