@@ -46,7 +46,7 @@
     "@types/jest": "^29.5.13",
     "@types/node": "*",
     "@types/react": "^19.0.0",
-    "@types/react-native": "*",
+    "@types/react-native": "^0.41.2 || ^0.57.0 || ^0.68.0 || ^0.70.0",
     "@types/react-test-renderer": "^19.0.0",
     "jshint": "*",
     "pod-install": "*",
