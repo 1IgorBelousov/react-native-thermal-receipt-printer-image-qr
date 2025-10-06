@@ -268,7 +268,8 @@ const BLEPrinter = {
       RNBLEPrinter.printRawData(
         processedText.text,
         processedText.opts,
-        (error: Error) => console.warn(error)
+        (error: Error) => {throw new Error("No printer Connection");
+        }
       );
     } else {
       RNBLEPrinter.printRawData(textTo64Buffer(text, opts), (error: Error) =>
