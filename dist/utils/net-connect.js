@@ -35,48 +35,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 // @ts-ignore
-import Ping from 'react-native-ping';
-export var connectToHost = function (ipAddress, timeout) {
-    if (timeout === void 0) { timeout = 4000; }
-    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-        var error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    /**
-                     *
-                     * Get RTT (Round-trip delay time)
-                     *
-                     * @static
-                     * @param {string} ipAddress - For example : 8.8.8.8
-                     * @param {Object} option - Some optional operations
-                     * @param {number} option.timeout - timeout
-                     * @returns
-                     * @memberof Ping
-                     */
-                    return [4 /*yield*/, Ping.start(ipAddress, { timeout: timeout })];
-                case 1:
-                    /**
-                     *
-                     * Get RTT (Round-trip delay time)
-                     *
-                     * @static
-                     * @param {string} ipAddress - For example : 8.8.8.8
-                     * @param {Object} option - Some optional operations
-                     * @param {number} option.timeout - timeout
-                     * @returns
-                     * @memberof Ping
-                     */
-                    _a.sent();
-                    resolve(true);
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _a.sent();
-                    reject(error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    }); });
-};
+// import Ping from 'react-native-ping';
+// export var connectToHost = function (ipAddress, timeout) {
+//     if (timeout === void 0) { timeout = 4000; }
+//     return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
+//         var error_1;
+//         return __generator(this, function (_a) {
+//             switch (_a.label) {
+//                 case 0:
+//                     _a.trys.push([0, 2, , 3]);
+//                     /**
+//                      *
+//                      * Get RTT (Round-trip delay time)
+//                      *
+//                      * @static
+//                      * @param {string} ipAddress - For example : 8.8.8.8
+//                      * @param {Object} option - Some optional operations
+//                      * @param {number} option.timeout - timeout
+//                      * @returns
+//                      * @memberof Ping
+//                      */
+//                     return [4 /*yield*/, Ping.start(ipAddress, { timeout: timeout })];
+//                 case 1:
+//                     /**
+//                      *
+//                      * Get RTT (Round-trip delay time)
+//                      *
+//                      * @static
+//                      * @param {string} ipAddress - For example : 8.8.8.8
+//                      * @param {Object} option - Some optional operations
+//                      * @param {number} option.timeout - timeout
+//                      * @returns
+//                      * @memberof Ping
+//                      */
+//                     _a.sent();
+//                     resolve(true);
+//                     return [3 /*break*/, 3];
+//                 case 2:
+//                     error_1 = _a.sent();
+//                     reject(error_1);
+//                     return [3 /*break*/, 3];
+//                 case 3: return [2 /*return*/];
+//             }
+//         });
+//     }); });
+// };
