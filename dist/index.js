@@ -133,15 +133,15 @@ var USBPrinter = {
         });
     },
     printText: function (text, opts) {
-        if (opts === void 0) { opts = {}; }
-        return RNUSBPrinter.printRawData(textTo64Buffer(text, opts), function (error) {
-            return console.warn(error);
+        return new Promise(function (resolve, reject) {
+           if (opts === void 0) { opts = {}; }
+            RNUSBPrinter.printRawData(textTo64Buffer(text, opts), resolve, reject);
         });
     },
     printBill: function (text, opts) {
-        if (opts === void 0) { opts = {}; }
-        return RNUSBPrinter.printRawData(billTo64Buffer(text, opts), function (error) {
-            return console.warn(error);
+        return new Promise(function (resolve, reject) {
+           if (opts === void 0) { opts = {}; }
+            RNUSBPrinter.printRawData(billTo64Buffer(text, opts), resolve, reject);
         });
     },
     /**
@@ -183,11 +183,9 @@ var USBPrinter = {
      * @param text
      */
     printRaw: function (text) {
-        if (Platform.OS === "ios") {
-        }
-        else {
-            RNUSBPrinter.printRawData(text, function (error) { return console.warn(error); });
-        }
+        return new Promise(function (resolve, reject) {
+            RNUSBPrinter.printRawData(text, resolve, reject);
+        });
     },
     /**
      * `columnWidth`
@@ -195,10 +193,10 @@ var USBPrinter = {
      * 58mm => 30 character
      */
     printColumnsText: function (texts, columnWidth, columnAlignment, columnStyle, opts) {
-        if (opts === void 0) { opts = {}; }
-        var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
-        RNUSBPrinter.printRawData(textTo64Buffer(result, opts), function (error) {
-            return console.warn(error);
+        return new Promise(function (resolve, reject) {
+            if (opts === void 0) { opts = {}; }
+            var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
+            RNUSBPrinter.printRawData(textTo64Buffer(result, opts), resolve, reject);
         });
     },
 };
@@ -230,29 +228,29 @@ var BLEPrinter = {
         });
     },
     printText: function (text, opts) {
-        if (opts === void 0) { opts = {}; }
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(text, false, false);
-            RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNBLEPrinter.printRawData(textTo64Buffer(text, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+           if (opts === void 0) { opts = {}; }
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(text, false, false);
+                RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
+            }
+            else {
+                RNBLEPrinter.printRawData(textTo64Buffer(text, opts), resolve, reject);
+            }
+        });
     },
     printBill: function (text, opts) {
-        var _a, _b;
-        if (opts === void 0) { opts = {}; }
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(text, (_a = opts === null || opts === void 0 ? void 0 : opts.cut) !== null && _a !== void 0 ? _a : true, (_b = opts.beep) !== null && _b !== void 0 ? _b : true);
-            RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNBLEPrinter.printRawData(billTo64Buffer(text, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+            var _a, _b;
+            if (opts === void 0) { opts = {}; }
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(text, (_a = opts === null || opts === void 0 ? void 0 : opts.cut) !== null && _a !== void 0 ? _a : true, (_b = opts.beep) !== null && _b !== void 0 ? _b : true);
+                RNBLEPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNBLEPrinter.printRawData(billTo64Buffer(text, opts), resolve, reject);
+            }
+        });
     },
     /**
      * image url
@@ -302,15 +300,15 @@ var BLEPrinter = {
      * @param text
      */
     printRaw: function (text) {
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(text, false, false);
-            RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) {
-                return console.warn(error);
-            });
-        }
-        else {
-            RNBLEPrinter.printRawData(text, function (error) { return console.warn(error); });
-        }
+        return new Promise(function (resolve, reject) {
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(text, false, false);
+                RNBLEPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNBLEPrinter.printRawData(text, resolve, reject);
+            }
+        });
     },
     /**
      * `columnWidth`
@@ -318,17 +316,17 @@ var BLEPrinter = {
      * 58mm => 30 character
      */
     printColumnsText: function (texts, columnWidth, columnAlignment, columnStyle, opts) {
-        if (opts === void 0) { opts = {}; }
-        var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(result, false, false);
-            RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNBLEPrinter.printRawData(textTo64Buffer(result, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+            if (opts === void 0) { opts = {}; }
+            var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(result, false, false);
+                RNBLEPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNBLEPrinter.printRawData(textTo64Buffer(result, opts), resolve, reject);
+            }
+        });
     },
 };
 var NetPrinter = {
@@ -370,29 +368,29 @@ var NetPrinter = {
         });
     },
     printText: function (text, opts) {
-        if (opts === void 0) { opts = {}; }
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(text, false, false);
-            RNNetPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNNetPrinter.printRawData(textTo64Buffer(text, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+            if (opts === void 0) { opts = {}; }
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(text, false, false);
+                RNNetPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNNetPrinter.printRawData(textTo64Buffer(text, opts), resolve, reject);
+            } 
+        });
     },
     printBill: function (text, opts) {
-        var _a, _b;
-        if (opts === void 0) { opts = {}; }
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(text, (_a = opts === null || opts === void 0 ? void 0 : opts.cut) !== null && _a !== void 0 ? _a : true, (_b = opts.beep) !== null && _b !== void 0 ? _b : true);
-            RNNetPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNNetPrinter.printRawData(billTo64Buffer(text, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+            var _a, _b;
+            if (opts === void 0) { opts = {}; }
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(text, (_a = opts === null || opts === void 0 ? void 0 : opts.cut) !== null && _a !== void 0 ? _a : true, (_b = opts.beep) !== null && _b !== void 0 ? _b : true);
+                RNNetPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNNetPrinter.printRawData(billTo64Buffer(text, opts), resolve, reject);
+            }
+        });
     },
     /**
      * image url
@@ -433,11 +431,14 @@ var NetPrinter = {
      * @param text
      */
     printRaw: function (text) {
-        if (Platform.OS === "ios") {
-        }
-        else {
-            RNNetPrinter.printRawData(text, function (error) { return console.warn(error); });
-        }
+        return new Promise(function (resolve, reject) {
+            if (Platform.OS === "ios") {
+                resolve();
+            }
+            else {
+                RNNetPrinter.printRawData(text, resolve, reject);
+            }
+        });
     },
     /**
      * `columnWidth`
@@ -445,18 +446,18 @@ var NetPrinter = {
      * 58mm => 30 character
      */
     printColumnsText: function (texts, columnWidth, columnAlignment, columnStyle, opts) {
-        if (columnStyle === void 0) { columnStyle = []; }
-        if (opts === void 0) { opts = {}; }
-        var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
-        if (Platform.OS === "ios") {
-            var processedText = textPreprocessingIOS(result, false, false);
-            RNNetPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
-        }
-        else {
-            RNNetPrinter.printRawData(textTo64Buffer(result, opts), function (error) {
-                return console.warn(error);
-            });
-        }
+        return new Promise(function (resolve, reject) {
+            if (columnStyle === void 0) { columnStyle = []; }
+            if (opts === void 0) { opts = {}; }
+            var result = processColumnText(texts, columnWidth, columnAlignment, columnStyle);
+            if (Platform.OS === "ios") {
+                var processedText = textPreprocessingIOS(result, false, false);
+                RNNetPrinter.printRawData(processedText.text, processedText.opts, resolve, reject);
+            }
+            else {
+                RNNetPrinter.printRawData(textTo64Buffer(result, opts), resolve, reject);
+            }
+        });
     },
 };
 var NetPrinterEventEmitter = Platform.OS === "ios"
