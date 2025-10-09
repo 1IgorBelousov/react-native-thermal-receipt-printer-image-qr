@@ -137,16 +137,26 @@ public class BLEPrinterAdapter implements PrinterAdapter {
                     connectBluetoothDevice(device, false);
                     successCallback.invoke(new BLEPrinterDevice(this.mBluetoothDevice).toRNWritableMap());
                     return;
-                } catch (IOException e) {
-                    try {
-                        connectBluetoothDevice(device, true);
-                        successCallback.invoke(new BLEPrinterDevice(this.mBluetoothDevice).toRNWritableMap());
-                        return;
-                    } catch (IOException er) {
-                        er.printStackTrace();
-                        errorCallback.invoke(er.getMessage());
-                        return;
-                    }
+                } catch (Exception e) {
+                    errorCallback.invoke(e.getMessage());
+                    Log.v(LOG_TAG, "MY ERROR");
+                    Log.v(LOG_TAG, e.getClass().getName());
+                    Log.v(LOG_TAG, e.getMessage());
+                    return;
+                    // try {
+                    // connectBluetoothDevice(device, true);
+                    // successCallback.invoke(new
+                    // BLEPrinterDevice(this.mBluetoothDevice).toRNWritableMap());
+                    // Log.v(LOG_TAG, "success");
+                    // return;
+                    // } catch (Exception er) {
+                    // Log.v(LOG_TAG, "MY ERR");
+                    // Log.v(LOG_TAG, er.getClass().getName());
+                    // Log.v(LOG_TAG, er.getMessage());
+                    // er.printStackTrace();
+                    // errorCallback.invoke(er.getMessage());
+                    // return;
+                    // }
                 }
             }
         }
@@ -156,16 +166,12 @@ public class BLEPrinterAdapter implements PrinterAdapter {
         return;
     }
 
-    private void connectBluetoothDevice(BluetoothDevice device, Boolean retry) throws IOException {
+    private void connectBluetoothDevice(BluetoothDevice device, Boolean retry) throws Exception {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
         if (retry) {
-            try {
-                this.mBluetoothSocket = (BluetoothSocket) device.getClass()
-                        .getMethod("createRfcommSocket", new Class[] { int.class }).invoke(device, 1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            this.mBluetoothSocket = (BluetoothSocket) device.getClass()
+                    .getMethod("createRfcommSocket", new Class[] { int.class }).invoke(device, 1);
         } else {
             this.mBluetoothSocket = device.createInsecureRfcommSocketToServiceRecord(uuid);
             this.mBluetoothSocket.connect();
